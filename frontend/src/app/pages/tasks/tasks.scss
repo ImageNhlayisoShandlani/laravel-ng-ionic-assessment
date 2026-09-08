@@ -1,0 +1,49 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.project-title {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.task-table {
+  width: 100%;
+}
+
+.status-chip {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-progress {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.status-completed {
+  background: #d4edda;
+  color: #155724;
+}
+
+.empty-state {
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin-top: 48px;
+}
