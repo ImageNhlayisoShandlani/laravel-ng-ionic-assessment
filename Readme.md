@@ -13,6 +13,7 @@ A small system for managing Projects and their Tasks, built with:
 
 - PHP 8.2+ and Composer
 - Node.js and npm
+- Angular CLI (`npm install -g @angular/cli`)
 - Ionic CLI (`npm install -g @ionic/cli`)
 
 ---
