@@ -1,20 +1,57 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Project & Task Manager</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-select
+      label="Select Project"
+      labelPlacement="stacked"
+      placeholder="Choose a project"
+      [(ngModel)]="selectedProjectId"
+      (ionChange)="onProjectChange()"
+    >
+      @for (p of projects(); track p.id) {
+        <ion-select-option [value]="p.id">{{ p.name }}</ion-select-option>
+      }
+    </ion-select>
+  </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  @if (selectedProjectId != null) {
+    <div class="tasks-header">
+      <h2>Tasks</h2>
+      <ion-button size="small" (click)="openCreateModal()">
+        <ion-icon name="add" slot="start"></ion-icon>
+        New Task
+      </ion-button>
+    </div>
+
+    @if (loadingTasks()) {
+      <ion-spinner name="dots"></ion-spinner>
+    } @else if (tasks().length === 0) {
+      <p class="empty-state">No tasks yet for this project.</p>
+    } @else {
+      <ion-list>
+        @for (task of tasks(); track task.id) {
+          <ion-item-sliding>
+            <ion-item>
+              <ion-label>
+                <h3>{{ task.title }}</h3>
+                <p>{{ task.due_date || 'No due date' }}</p>
+              </ion-label>
+              <ion-badge [color]="statusColor(task.status)" slot="end">{{ task.status }}</ion-badge>
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option color="primary" (click)="openEditModal(task)">Edit</ion-item-option>
+              <ion-item-option color="danger" (click)="confirmDelete(task)">Delete</ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        }
+      </ion-list>
+    }
+  } @else {
+    <p class="empty-state">Select a project above to view its tasks.</p>
+  }
 </ion-content>
